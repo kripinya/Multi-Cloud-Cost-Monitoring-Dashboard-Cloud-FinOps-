@@ -10,7 +10,7 @@
 | **Domain** | Cloud Computing, FinOps, Artificial Intelligence |
 | **Category** | Web Application with ML and Agentic AI Integration |
 | **Team Size** | 4 Members |
-| **Duration** | 8 Weeks |
+|**Team Members**| Ramendra Tiwary, Jaspinder Kaur, Ananya Karn, Arnav Chaudhary
 | **Internship** | IBM College Internship Program |
 
 ---
@@ -58,7 +58,7 @@ To design and develop a web-based Multi-Cloud Cost Monitoring Dashboard that int
 | 3 | FinOps Foundation (2024), "State of FinOps Report" | Industry-wide survey showing average cloud waste at 30% with multi-cloud visibility cited as the top challenge | Validates that the problem we are solving is real and widely recognized |
 | 4 | Yao et al. (2023), "ReAct: Synergizing Reasoning and Acting in Language Models" | Proposed the ReAct pattern where LLMs alternate between reasoning steps and external tool calls | We follow this pattern in our chatbot — the agent reasons about the question, decides which API to call, and then generates the answer from the returned data |
 | 5 | Google (2024), "Function Calling in Gemini" | Documented how Gemini models can invoke external functions to retrieve real-time data | Direct implementation guide for our agentic AI — we define tools the model can call to query our database |
-| 6 | IBM (2025), "watsonx Orchestrate: Enterprise AI Agents" | IBM's approach to agentic AI for enterprise workflow automation | Aligns our project with IBM's strategic direction, relevant for the internship context |
+| 6 | Schick et al. (2024), "Toolformer: Language Models Can Teach Themselves to Use Tools" | Demonstrated that LLMs can learn when and how to call external APIs during generation | Supports our design decision to give the chatbot autonomous tool-use capability rather than hardcoding responses |
 | 7 | Gartner (2025), "Cloud Cost Optimization Hype Cycle" | Rated AI/ML-based cost optimization as a "transformational" technology on the hype cycle | Confirms that the approach we are taking is considered cutting-edge by industry analysts |
 
 ---
@@ -255,7 +255,7 @@ gantt
 5. Every recommendation comes with a dollar-value estimate, making it straightforward to prioritize which optimizations to pursue first
 6. The entire stack runs on free-tier services, making it accessible to teams that cannot justify enterprise tool licensing
 7. The microservice architecture keeps each component independent, meaning the ML models can be improved or swapped out without rewriting the rest of the application
-8. The project's architecture closely mirrors IBM's own product suite (watsonx for agentic AI, Turbonomic for cost optimization, Apptio for FinOps), giving the team exposure to enterprise design patterns
+8. The entire stack is built on free-tier and open-source technologies, proving that enterprise-grade FinOps tooling does not require expensive licenses
 
 ## 11. Limitations
 
@@ -274,7 +274,7 @@ gantt
 4. Support multiple organizations with proper role-based access control (admin, viewer, analyst roles)
 5. Push alerts and insights to Slack or Microsoft Teams channels, since that is where most teams already communicate
 6. Experiment with LSTM neural networks for cost forecasting, which may capture more complex patterns than linear regression or Prophet
-7. Offer IBM watsonx as an alternative LLM backend, which would strengthen alignment with IBM's enterprise AI platform for organizations already in that ecosystem
+7. Add support for additional LLM backends (such as open-source models via Ollama or Hugging Face) to remove dependency on any single AI provider
 8. Add carbon footprint tracking that maps cloud spending to estimated CO2 emissions per provider and region, supporting sustainability reporting
 9. Implement a FinOps maturity scoring system that assesses how well an organization is following FinOps best practices and suggests concrete steps to move from Crawl to Walk to Run
 
@@ -288,6 +288,6 @@ gantt
 4. S. J. Taylor and B. Letham, "Forecasting at Scale," The American Statistician, vol. 72, no. 1, pp. 37-45, 2018.
 5. S. Yao et al., "ReAct: Synergizing Reasoning and Acting in Language Models," ICLR, 2023.
 6. Google, "Gemini API Function Calling Documentation," Google AI for Developers, 2024.
-7. IBM, "IBM watsonx Orchestrate — Build AI Agents for Enterprise," IBM, 2025.
+7. T. Schick et al., "Toolformer: Language Models Can Teach Themselves to Use Tools," NeurIPS, 2024.
 8. Gartner, "Hype Cycle for Cloud Computing, 2025," Gartner Research, 2025.
 9. J.R. Storment and M. Fuller, "Cloud FinOps: Collaborative, Real-Time Cloud Financial Management," O'Reilly Media, 2023.

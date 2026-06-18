@@ -52,7 +52,7 @@ We propose CloudFinOps — a web-based Multi-Cloud Cost Monitoring Dashboard tha
 +------------------+--------------------+--------------------+
 ```
 
-The Cloud layer handles data ingestion and normalization — pulling billing records from all three providers into a unified schema so that costs can be compared and analyzed side by side. The ML layer applies an Isolation Forest model to learn what "normal" spending looks like for a given organization and flags deviations automatically, while a forecasting module projects costs forward using historical trends. The Agentic AI layer wraps everything in a conversational interface powered by a large language model (Gemini or IBM watsonx) with function-calling capabilities — so a user can type "Why did our AWS bill spike last Tuesday?" and the agent will fetch the relevant data, analyze it, and respond in plain English.
+The Cloud layer handles data ingestion and normalization — pulling billing records from all three providers into a unified schema so that costs can be compared and analyzed side by side. The ML layer applies an Isolation Forest model to learn what "normal" spending looks like for a given organization and flags deviations automatically, while a forecasting module projects costs forward using historical trends. The Agentic AI layer wraps everything in a conversational interface powered by a large language model (Google Gemini, free tier) with function-calling capabilities — so a user can type "Why did our AWS bill spike last Tuesday?" and the agent will fetch the relevant data, analyze it, and respond in plain English.
 
 ### 5. Objectives
 
@@ -95,4 +95,4 @@ The Cloud layer handles data ingestion and normalization — pulling billing rec
 
 ---
 
-**Technology Alignment with IBM**: The architecture of this project mirrors several IBM enterprise products. The agentic AI chatbot follows the same patterns as IBM watsonx Orchestrate. The ML-based cost optimization draws from what IBM Turbonomic does for infrastructure resource management. And the FinOps reporting and forecasting capabilities parallel IBM Apptio (which IBM acquired specifically for cloud financial management). Building this project gave us hands-on exposure to the architectural thinking behind IBM's AI-driven hybrid cloud strategy.
+**Technology Note**: This project is built entirely on free-tier and open-source technologies — Google Gemini API (free tier) for the agentic AI chatbot, scikit-learn (open-source) for ML anomaly detection, MongoDB Atlas (free M0 cluster) for data storage, and Vercel + Render (free tiers) for deployment. This demonstrates that enterprise-grade FinOps capabilities can be delivered without expensive proprietary tooling, making intelligent cloud cost management accessible to teams of any size.

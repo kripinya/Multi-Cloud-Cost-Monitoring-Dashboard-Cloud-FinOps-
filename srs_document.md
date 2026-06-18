@@ -903,10 +903,12 @@ erDiagram
 
 ### 11.3 Glossary of IBM Product Alignment
 
-| CloudFinOps Feature | IBM Product Equivalent |
-|---|---|
-| Multi-cloud cost aggregation | IBM Apptio Cloudability |
-| ML anomaly detection | IBM Turbonomic |
-| Agentic AI chatbot | IBM watsonx Orchestrate |
-| Cost optimization recommendations | IBM Turbonomic ARM |
-| Report generation | IBM Apptio Reports |
+| Component | Service |
+|---|---|---|
+| AI / LLM | Google Gemini API |
+| Database | MongoDB Atlas M0 |
+| Frontend Hosting | Vercel |
+| Backend Hosting | Render |
+| ML Libraries | scikit-learn, Pandas, NumPy |
+| Charts | Recharts |
+| Forecasting | Prophet (optional) |
