@@ -202,51 +202,7 @@ This module handles the creation of downloadable cost reports. Users select a da
 
 ---
 
-## 9. Project Timeline
-
-```mermaid
-gantt
-    title CloudFinOps -- 8-Week Development Timeline
-    dateFormat  YYYY-MM-DD
-    
-    section Phase 1 -- Foundation
-    Project Setup and Design System       :a1, 2026-06-18, 4d
-    Database Schema and Mock Data         :a2, 2026-06-18, 5d
-    Chart Component Research              :a3, 2026-06-18, 3d
-    AI/ML Research and API Setup          :a4, 2026-06-18, 4d
-    
-    section Phase 2 -- Core Development
-    Sidebar, Header, Routing              :b1, 2026-06-25, 5d
-    REST API Endpoints                    :b2, 2026-06-25, 7d
-    Cost Explorer and Charts              :b3, 2026-06-27, 7d
-    Budget and Alerts Page                :b4, 2026-06-27, 6d
-    
-    section Phase 3 -- AI/ML Integration
-    Overview Page and KPI Cards           :c1, 2026-07-04, 5d
-    ML Microservice -- Anomaly and Forecast :c2, 2026-07-02, 7d
-    Anomaly Highlights on Charts          :c3, 2026-07-07, 4d
-    Agentic AI Chatbot                    :c4, 2026-07-02, 8d
-    
-    section Phase 4 -- Intelligence
-    AI Insights Generator                 :d1, 2026-07-11, 4d
-    Recommendations Engine                :d2, 2026-07-11, 5d
-    Report Export -- PDF/CSV              :d3, 2026-07-14, 3d
-    Forecast Visualization                :d4, 2026-07-11, 4d
-    
-    section Phase 5 -- Polish and Deploy
-    Responsive Design                     :e1, 2026-07-18, 3d
-    Integration Testing                   :e2, 2026-07-18, 5d
-    Deployment -- Vercel and Render       :e3, 2026-07-23, 3d
-    Documentation and Demo Prep           :e4, 2026-07-25, 4d
-    Settings Page and Final Polish        :e5, 2026-07-25, 4d
-    
-    section Milestone
-    Final Submission                      :milestone, 2026-08-01, 0d
-```
-
----
-
-## 10. Advantages
+## 9. Advantages
 
 1. Gives organizations a single place to see and compare cloud spending across all three major providers, replacing the need to juggle multiple billing consoles
 2. The ML-based anomaly detection removes the guesswork from threshold setting — the model learns what is normal for your specific spending patterns and flags deviations automatically
@@ -257,7 +213,7 @@ gantt
 7. The microservice architecture keeps each component independent, meaning the ML models can be improved or swapped out without rewriting the rest of the application
 8. The entire stack is built on free-tier and open-source technologies, proving that enterprise-grade FinOps tooling does not require expensive licenses
 
-## 11. Limitations
+## 10. Limitations
 
 1. The system uses simulated billing data rather than live connections to cloud provider APIs — this is sufficient for demonstration but would need real API integration for production use
 2. The anomaly detection model needs at least 30 days of historical data before it can reliably distinguish normal variation from genuine anomalies
