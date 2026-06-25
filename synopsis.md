@@ -19,7 +19,7 @@
 
 Cloud Financial Operations (FinOps) has become an increasingly important discipline as organizations adopt multi-cloud strategies that span AWS, Azure, and GCP. Managing costs across these platforms is difficult because each provider uses different billing structures, consoles, and terminology — making it nearly impossible to get a single, coherent picture of total spending without significant manual effort.
 
-This project presents CloudFinOps, a web-based dashboard that brings multi-cloud cost monitoring under one roof. Beyond basic aggregation and visualization, the system incorporates machine learning for anomaly detection (using the Isolation Forest algorithm to catch unusual spending patterns automatically), time-series forecasting to project costs forward with confidence intervals, and an agentic AI chatbot powered by Google Gemini with function-calling capabilities. The chatbot lets users ask questions in plain English — things like "Why did our Azure bill jump last week?" — and the agent autonomously fetches the relevant data, runs the analysis, and responds with specific numbers and recommendations.
+This project presents VyayaDrishti, a web-based dashboard that brings multi-cloud cost monitoring under one roof. Beyond basic aggregation and visualization, the system incorporates machine learning for anomaly detection (using the Isolation Forest algorithm to catch unusual spending patterns automatically), time-series forecasting to project costs forward with confidence intervals, and an agentic AI chatbot powered by Google Gemini with function-calling capabilities. The chatbot lets users ask questions in plain English — things like "Why did our Azure bill jump last week?" — and the agent autonomously fetches the relevant data, runs the analysis, and responds with specific numbers and recommendations.
 
 The system is built on a microservice architecture with React on the frontend, Node.js and Express handling the REST API, a Python Flask service running the ML models, and MongoDB Atlas for data storage. Together, these components demonstrate how modern AI techniques can shift cloud cost management from a reactive, manual process to something proactive and largely automated.
 
@@ -65,7 +65,7 @@ To design and develop a web-based Multi-Cloud Cost Monitoring Dashboard that int
 
 ## 4. Existing System vs Proposed System
 
-| Aspect | Existing Systems | Proposed System (CloudFinOps) |
+| Aspect | Existing Systems | Proposed System (VyayaDrishti) |
 |---|---|---|
 | Multi-cloud support | Native tools cover a single provider; enterprise tools are expensive | Unified dashboard covering AWS, Azure, and GCP in one place |
 | Anomaly detection | Relies on manually configured thresholds — you have to know in advance what "abnormal" looks like | ML-based detection that learns what normal looks like from your data and flags deviations automatically |

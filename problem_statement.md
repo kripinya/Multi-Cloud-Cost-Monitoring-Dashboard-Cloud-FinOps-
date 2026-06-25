@@ -35,11 +35,11 @@ What we found through our research is that none of these existing tools combine 
 
 ### 4. Proposed Solution
 
-We propose CloudFinOps — a web-based Multi-Cloud Cost Monitoring Dashboard that brings together three technology domains to address the gaps outlined above:
+We propose VyayaDrishti — a web-based Multi-Cloud Cost Monitoring Dashboard that brings together three technology domains to address the gaps outlined above:
 
 ```
 +------------------------------------------------------------+
-|                       CloudFinOps                          |
+|                       VyayaDrishti                         |
 +------------------+--------------------+--------------------+
 |     CLOUD        |      ML / AI       |    AGENTIC AI      |
 |                  |                    |                    |

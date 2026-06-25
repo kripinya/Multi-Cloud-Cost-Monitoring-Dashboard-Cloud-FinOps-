@@ -28,7 +28,7 @@
 
 ### 1.1 Purpose
 
-This Software Requirements Specification (SRS) document provides a complete description of the functional and non-functional requirements for the **Multi-Cloud Cost Monitoring Dashboard with AI-Driven FinOps Intelligence** (hereafter referred to as **CloudFinOps**). This document is intended for:
+This Software Requirements Specification (SRS) document provides a complete description of the functional and non-functional requirements for the **Multi-Cloud Cost Monitoring Dashboard with AI-Driven FinOps Intelligence** (hereafter referred to as **VyayaDrishti**). This document is intended for:
 
 - Development team members (4 persons)
 - IBM internship mentors and evaluators
@@ -36,7 +36,7 @@ This Software Requirements Specification (SRS) document provides a complete desc
 
 ### 1.2 Scope
 
-CloudFinOps is a web-based application that provides:
+VyayaDrishti is a web-based application that provides:
 - Unified cloud cost monitoring across AWS, Azure, and GCP
 - Machine learning-based anomaly detection and cost forecasting
 - An agentic AI chatbot for natural language cost analysis
@@ -77,7 +77,7 @@ The system will **NOT**:
 
 ### 2.1 Product Perspective
 
-CloudFinOps is a standalone web application built on a microservice architecture. It consists of three independently deployable services:
+VyayaDrishti is a standalone web application built on a microservice architecture. It consists of three independently deployable services:
 
 ```mermaid
 graph LR
@@ -495,7 +495,7 @@ graph LR
 ┌──────────────────────────────────────────────────────────┐
 │ Sidebar (260px)  │  Header (64px height)                 │
 │                  ├───────────────────────────────────────┤
-│ CloudFinOps      │                                       │
+│ VyayaDrishti     │                                       │
 │                  │   Page Content Area                   │
 │ ▸ Overview       │                                       │
 │ ▸ Cost Explorer  │   (Charts, Cards, Tables,             │
@@ -754,7 +754,7 @@ graph TB
 
 ```mermaid
 graph LR
-    User((User)) -->|HTTP Requests| System[CloudFinOps System]
+    User((User)) -->|HTTP Requests| System[VyayaDrishti System]
     System -->|Dashboard Data, Charts, AI Responses| User
     System -->|Queries| DB[(MongoDB)]
     DB -->|Cost Records, Budgets, Alerts| System
