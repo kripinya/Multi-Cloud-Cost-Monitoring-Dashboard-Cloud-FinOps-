@@ -191,18 +191,7 @@ This module handles the creation of downloadable cost reports. Users select a da
 
 ---
 
-## 8. Team Allocation
-
-| Member | Role | Modules Owned | Primary Technologies |
-|---|---|---|---|
-| Person 1 | Frontend Architect and UI Designer | Module 2 (Dashboard layout, Overview page, Settings page) | React, CSS, React Router |
-| Person 2 | Backend Engineer and ML Developer | Module 1 (Data generation), Module 3 (Anomaly Detection), Module 4 (Forecasting) | Node.js, Express, MongoDB, Python, scikit-learn |
-| Person 3 | Visualization Specialist | Module 2 (Chart components, Cost Explorer page, filters) | Recharts, React, data transformation |
-| Person 4 | AI Engineer and FinOps Intelligence | Module 5 (AI Chatbot), Module 6 (Budgets), Module 7 (Recommendations), Module 8 (Reports) | Gemini API, function calling, jsPDF |
-
----
-
-## 9. Advantages
+## 8. Advantages
 
 1. Gives organizations a single place to see and compare cloud spending across all three major providers, replacing the need to juggle multiple billing consoles
 2. The ML-based anomaly detection removes the guesswork from threshold setting — the model learns what is normal for your specific spending patterns and flags deviations automatically
@@ -213,7 +202,7 @@ This module handles the creation of downloadable cost reports. Users select a da
 7. The microservice architecture keeps each component independent, meaning the ML models can be improved or swapped out without rewriting the rest of the application
 8. The entire stack is built on free-tier and open-source technologies, proving that enterprise-grade FinOps tooling does not require expensive licenses
 
-## 10. Limitations
+## 9. Limitations
 
 1. The system uses simulated billing data rather than live connections to cloud provider APIs — this is sufficient for demonstration but would need real API integration for production use
 2. The anomaly detection model needs at least 30 days of historical data before it can reliably distinguish normal variation from genuine anomalies
@@ -222,7 +211,7 @@ This module handles the creation of downloadable cost reports. Users select a da
 5. The application is single-tenant by design and does not support multiple organizations or role-based access at a granular level
 6. Gemini API's free tier imposes rate limits (60 requests per minute), which would need to be addressed for any deployment beyond a small team
 
-## 12. Future Enhancements
+## 10. Future Enhancements
 
 1. Connect to live AWS Cost Explorer, Azure Cost Management, and GCP Billing APIs so the dashboard reflects real spending data
 2. Add Kubernetes cost allocation by integrating with Kubecost, allowing teams to see spending at the container and namespace level
@@ -236,7 +225,7 @@ This module handles the creation of downloadable cost reports. Users select a da
 
 ---
 
-## 13. References
+## 11. References
 
 1. Flexera, "2025 State of the Cloud Report," Flexera, 2025.
 2. FinOps Foundation, "State of FinOps 2024," The Linux Foundation, 2024.
