@@ -45,6 +45,6 @@ const costRecordSchema = new mongoose.Schema({
     timestamps: true //creats createdAt and updatedAt field automatically
 });
 costRecordSchema.index({ provider: 1, date: -1 }); //index on provider and date for faster access
-costRecordsSchema.index({ date: -1 });//
+costRecordSchema.index({ date: -1 });//
 //export the model"costRecord" becomes collection name "costRecords"in mongoDB
 module.exports = mongoose.model('CostRecord', costRecordSchema);
