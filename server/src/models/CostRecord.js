@@ -32,6 +32,10 @@ const costRecordSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    usageUnit: {
+        type: String,
+        default: 'units'
+    },
     tags: {
         project: { type: String, default: 'default' },
         team: { type: String, default: 'engineering' },

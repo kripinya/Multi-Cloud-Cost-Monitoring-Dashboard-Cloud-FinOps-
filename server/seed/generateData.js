@@ -4,9 +4,8 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
-// Load .env from the server root (one folder up from seed/)
-dotenv.config({ path: '../.env' });
-// If that doesn't work, try: dotenv.config({ path: require('path').resolve(__dirname, '../.env') });
+// Load .env from the server root
+dotenv.config({ path: require('path').resolve(__dirname, '../.env') });
 
 const CostRecord = require('../src/models/CostRecord');
 
