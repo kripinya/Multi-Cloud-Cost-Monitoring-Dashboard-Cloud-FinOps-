@@ -2,7 +2,7 @@ import { Bell, User } from 'lucide-react';
 
 export default function Header({ title = 'Overview' }) {
   return (
-    <header className="h-16 border-b border-white/10 flex items-center justify-between px-8">
+    <header className="h-16 border-b border-slate-200 flex items-center justify-between px-8">
       
       {/* Page Title */}
       <h2 className="text-lg font-semibold text-textMain tracking-tight">{title}</h2>
@@ -18,7 +18,7 @@ export default function Header({ title = 'Overview' }) {
         </button>
 
         {/* User Avatar */}
-        <div className="flex items-center gap-3 pl-4 border-l border-white/10">
+        <div className="flex items-center gap-3 pl-4 border-l border-slate-200">
           <div className="w-8 h-8 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
             <User size={14} className="text-primary" />
           </div>

@@ -21,10 +21,10 @@ const navItems = [
 
 export default function Sidebar() {
   return (
-    <aside className="fixed top-0 left-0 h-screen w-64 bg-surface border-r border-white/10 flex flex-col z-50">
+    <aside className="fixed top-0 left-0 h-screen w-64 bg-surface border-r border-slate-200 flex flex-col z-50">
       
       {/* Logo Area */}
-      <div className="p-6 border-b border-white/10">
+      <div className="p-6 border-b border-slate-200">
         <h1 className="text-xl font-bold tracking-tight">
           <span className="text-primary">Vyaya</span>
           <span className="text-textMain">Drishti</span>
@@ -53,7 +53,7 @@ export default function Sidebar() {
       </nav>
 
       {/* Bottom Section */}
-      <div className="p-4 border-t border-white/10">
+      <div className="p-4 border-t border-slate-200">
         <div className="bg-primary/10 border border-primary/20 rounded-xl p-3">
           <p className="text-xs text-primary font-semibold">Free Tier</p>
           <p className="text-[11px] text-textMuted mt-1">3 cloud providers connected</p>
