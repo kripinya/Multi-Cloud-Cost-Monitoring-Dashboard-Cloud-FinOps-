@@ -4,6 +4,8 @@ import Header from './components/layout/Header';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import CostExplorer from './pages/CostExplorer';
 
 function App() {
   return (
@@ -24,8 +26,8 @@ function App() {
             <Routes>
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/explorer" element={<div className="text-textMuted">Cost Explorer — Coming Soon</div>} />
+              <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+              <Route path="/explorer" element={<ProtectedRoute><CostExplorer /></ProtectedRoute>} />
               <Route path="/budgets" element={<div className="text-textMuted">Budgets — Coming Soon</div>} />
               <Route path="/alerts" element={<div className="text-textMuted">Alerts — Coming Soon</div>} />
               <Route path="/forecasts" element={<div className="text-textMuted">Forecasts — Coming Soon</div>} />
