@@ -6,6 +6,8 @@ import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import CostExplorer from './pages/CostExplorer';
+import Budgets from './pages/Budgets';
+import Alerts from './pages/Alerts';
 
 function App() {
   return (
@@ -28,8 +30,8 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
               <Route path="/explorer" element={<ProtectedRoute><CostExplorer /></ProtectedRoute>} />
-              <Route path="/budgets" element={<div className="text-textMuted">Budgets — Coming Soon</div>} />
-              <Route path="/alerts" element={<div className="text-textMuted">Alerts — Coming Soon</div>} />
+              <Route path="/budgets" element={<ProtectedRoute><Budgets /></ProtectedRoute>} />
+              <Route path="/alerts" element={<ProtectedRoute><Alerts /></ProtectedRoute>} />
               <Route path="/forecasts" element={<div className="text-textMuted">Forecasts — Coming Soon</div>} />
               <Route path="/chat" element={<div className="text-textMuted">AI Assistant — Coming Soon</div>} />
               <Route path="/settings" element={<div className="text-textMuted">Settings — Coming Soon</div>} />
