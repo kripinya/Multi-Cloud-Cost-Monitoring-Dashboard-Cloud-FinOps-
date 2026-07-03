@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* Backgrounds: Clean White and Light Gray */
+  --color-background: #FFFFFF;
+  --color-surface: #F8FAFC;
+  --color-surfaceHover: #F1F5F9;
+  
+  /* Accents: Professional Blue Theme */
+  --color-primary: #2563EB; /* Blue-600 */
+  --color-primaryGlow: rgba(37, 99, 235, 0.15);
+  --color-secondary: #0284C7; /* Light Blue-600 */
+  
+  /* Cloud Provider Specific Colors (Slightly darkened for contrast on white) */
+  --color-aws: #E67E22;
+  --color-azure: #0078D4;
+  --color-gcp: #D93025;
+  
+  /* Text: Dark Slate for readability */
+  --color-textMain: #0F172A;
+  --color-textMuted: #475569;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-textMain);
+  -webkit-font-smoothing: antialiased;
+}
