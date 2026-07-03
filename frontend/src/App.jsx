@@ -8,6 +8,9 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import CostExplorer from './pages/CostExplorer';
 import Budgets from './pages/Budgets';
 import Alerts from './pages/Alerts';
+import Forecasts from './pages/Forecasts';
+import Settings from './pages/Settings';
+
 
 function App() {
   return (
@@ -32,9 +35,9 @@ function App() {
               <Route path="/explorer" element={<ProtectedRoute><CostExplorer /></ProtectedRoute>} />
               <Route path="/budgets" element={<ProtectedRoute><Budgets /></ProtectedRoute>} />
               <Route path="/alerts" element={<ProtectedRoute><Alerts /></ProtectedRoute>} />
-              <Route path="/forecasts" element={<div className="text-textMuted">Forecasts — Coming Soon</div>} />
+              <Route path="/forecasts" element={<ProtectedRoute><Forecasts /></ProtectedRoute>} />
               <Route path="/chat" element={<div className="text-textMuted">AI Assistant — Coming Soon</div>} />
-              <Route path="/settings" element={<div className="text-textMuted">Settings — Coming Soon</div>} />
+              <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
             </Routes>
           </main>
         </div>
