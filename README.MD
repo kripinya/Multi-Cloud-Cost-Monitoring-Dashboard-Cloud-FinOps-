@@ -23,11 +23,32 @@ Every single row in the database follows this Mongoose schema:
 | `usageUnit` | String | The metric for usage (`hours`, `GB`) |
 | `tags` | Object | Metadata (`project`, `team`, `environment`) |
 
-### Simulated Providers & Services
-The data generator simulates **18 core services** across 3 providers:
-*   **AWS:** EC2, S3, RDS, Lambda, CloudFront, EKS, DynamoDB
-*   **Azure:** Virtual Machines, Blob Storage, SQL Database, Functions, AKS, Cosmos DB
-*   **GCP:** Compute Engine, Cloud Storage, BigQuery, Cloud Functions, GKE
+### Simulated Providers & Services (CSPs)
+The data generator specifically simulates **18 core services** across the top 3 Cloud Service Providers to represent a realistic, modern enterprise architecture:
+
+**1. AWS (Amazon Web Services)**
+*   **EC2** (Compute)
+*   **S3** (Storage)
+*   **RDS** (Database)
+*   **Lambda** (Serverless)
+*   **CloudFront** (CDN)
+*   **EKS** (Kubernetes)
+*   **DynamoDB** (NoSQL)
+
+**2. Azure (Microsoft)**
+*   **Virtual Machines** (Compute)
+*   **Blob Storage** (Storage)
+*   **SQL Database** (Database)
+*   **Functions** (Serverless)
+*   **AKS** (Kubernetes)
+*   **Cosmos DB** (NoSQL)
+
+**3. GCP (Google Cloud Platform)**
+*   **Compute Engine** (Compute)
+*   **Cloud Storage** (Storage)
+*   **BigQuery** (Data Warehouse)
+*   **Cloud Functions** (Serverless)
+*   **GKE** (Kubernetes)
 
 ### Generation Logic & Patterns
 To make the data look like a real company's billing export, the seed script applies several algorithms:
