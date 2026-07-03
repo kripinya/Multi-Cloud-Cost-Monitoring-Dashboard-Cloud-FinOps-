@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
 import Dashboard from './pages/Dashboard';
+import Login from './pages/Auth/Login';
+import Signup from './pages/Auth/Signup';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           {/* Page Content */}
           <main className="flex-1 p-8">
             <Routes>
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/" element={<Dashboard />} />
               <Route path="/explorer" element={<div className="text-textMuted">Cost Explorer — Coming Soon</div>} />
               <Route path="/budgets" element={<div className="text-textMuted">Budgets — Coming Soon</div>} />
