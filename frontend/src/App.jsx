@@ -10,7 +10,7 @@ import Budgets from './pages/Budgets';
 import Alerts from './pages/Alerts';
 import Forecasts from './pages/Forecasts';
 import Settings from './pages/Settings';
-
+import Chat from './pages/Chat';
 
 function App() {
   return (
@@ -36,7 +36,7 @@ function App() {
               <Route path="/budgets" element={<ProtectedRoute><Budgets /></ProtectedRoute>} />
               <Route path="/alerts" element={<ProtectedRoute><Alerts /></ProtectedRoute>} />
               <Route path="/forecasts" element={<ProtectedRoute><Forecasts /></ProtectedRoute>} />
-              <Route path="/chat" element={<div className="text-textMuted">AI Assistant — Coming Soon</div>} />
+              <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
               <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
             </Routes>
           </main>
