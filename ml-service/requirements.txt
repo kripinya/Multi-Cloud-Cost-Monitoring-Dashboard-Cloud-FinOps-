@@ -1,7 +1,7 @@
 flask
 flask-cors
-pymongo[srv]
+python-dotenv
 pandas
 scikit-learn
-google-generativeai
-python-dotenv
+google-genai
+requests

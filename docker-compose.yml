@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
+
+  server:
+    build: ./server
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./server/.env
+
+  ml-service:
+    build: ./ml-service
+    ports:
+      - "5001:5001"
+    env_file:
+      - ./server/.env
+    depends_on:
+      - server
