@@ -13,7 +13,8 @@ app = Flask(__name__)
 CORS(app)
 
 # Express backend URL (your Node.js server)
-EXPRESS_API = "http://localhost:4000/api"
+# Use 'server' instead of localhost for internal Docker network communication
+EXPRESS_API = os.getenv("EXPRESS_API_URL", "http://server:4000/api")
 
 # Configure Gemini
 gemini_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
@@ -92,6 +93,8 @@ def chat():
 # Run the server
 # ──────────────────────────────────────────────
 if __name__ == "__main__":
-    port = int(os.getenv("PORT", 5001))
-    print(f"ML Service running on http://localhost:{port}")
-    app.run(debug=True, port=port)
+    # Use ML_PORT to avoid collision with Node's PORT=4000 in .env
+    port = int(os.getenv("ML_PORT", 5001))
+    print(f"ML Service running on http://0.0.0.0:{port}")
+    # host="0.0.0.0" is required for Docker to expose the port outside the container
+    app.run(host="0.0.0.0", debug=True, port=port)
