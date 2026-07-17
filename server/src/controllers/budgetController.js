@@ -1,5 +1,32 @@
 const Budget = require('../models/Budget');
 const CostRecord = require('../models/CostRecord');
+const Alert = require('../models/Alert');
+
+// Helper: Check budget thresholds and create alerts if needed
+const checkAndCreateAlerts = async (budget, currentSpend) => {
+    const utilization = (currentSpend / budget.amount) * 100;
+
+    for (const threshold of budget.alertThresholds) {
+        if (utilization >= threshold) {
+            // Check if an alert for this budget + threshold already exists
+            const existingAlert = await Alert.findOne({
+                budgetId: budget._id,
+                thresholdCrossed: threshold
+            });
+
+            if (!existingAlert) {
+                const severity = threshold >= 100 ? 'critical' : 'warning';
+                await Alert.create({
+                    budgetId: budget._id,
+                    thresholdCrossed: threshold,
+                    currentSpend: currentSpend,
+                    severity: severity
+                });
+                console.log(`Alert created: Budget "${budget.name}" crossed ${threshold}% (${severity})`);
+            }
+        }
+    }
+};
 
 // GET /api/budgets — list all budgets with their current spend
 const getAllBudgets = async (req, res) => {
@@ -22,6 +49,9 @@ const getAllBudgets = async (req, res) => {
             ]);
 
             const currentSpend = result.length > 0 ? Math.round(result[0].total * 100) / 100 : 0;
+
+            // Check thresholds and create alerts automatically
+            await checkAndCreateAlerts(budget, currentSpend);
 
             return {
                 ...budget.toObject(),
@@ -77,6 +107,9 @@ const deleteBudget = async (req, res) => {
         if (!budget) {
             return res.status(404).json({ error: 'Budget not found' });
         }
+
+        // Also delete associated alerts when a budget is removed
+        await Alert.deleteMany({ budgetId: req.params.id });
 
         res.json({ success: true, message: 'Budget deleted' });
     } catch (error) {

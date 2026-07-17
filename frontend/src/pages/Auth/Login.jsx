@@ -28,7 +28,7 @@ export default function Login() {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-surface p-4">
-            <div className="bg-white border border-slate-200 p-8 rounded-2xl shadow-sm w-full max-w-md">
+            <div className="bg-surface border border-borderMain p-8 rounded-2xl shadow-sm w-full max-w-md">
                 <div className="text-center mb-8">
                     <h1 className="text-2xl font-bold text-textMain tracking-tight">Welcome Back</h1>
                     <p className="text-textMuted text-sm mt-2">Log in to VyayaDrishti</p>
@@ -46,7 +46,7 @@ export default function Login() {
                         <input
                             type="email"
                             required
-                            className="w-full p-2.5 bg-surface border border-slate-200 rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                            className="w-full p-2.5 bg-surface border border-borderMain rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
@@ -57,7 +57,7 @@ export default function Login() {
                         <input
                             type="password"
                             required
-                            className="w-full p-2.5 bg-surface border border-slate-200 rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+                            className="w-full p-2.5 bg-surface border border-borderMain rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />

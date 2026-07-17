@@ -35,7 +35,7 @@ export default function CostExplorer() {
                             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 border
                                 ${provider === p
                                     ? 'bg-primary text-white border-primary'
-                                    : 'bg-surface text-textMuted border-slate-200 hover:border-primary hover:text-primary'
+                                    : 'bg-surface text-textMuted border-borderMain hover:border-primary hover:text-primary'
                                 }`}
                         >
                             {p === 'all' ? 'All Providers' : p}
@@ -45,10 +45,10 @@ export default function CostExplorer() {
             </div>
 
             {/* Cost Table */}
-            <div className="bg-surface border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+            <div className="bg-surface border border-borderMain rounded-2xl shadow-sm overflow-hidden">
                 <table className="w-full text-sm">
                     <thead>
-                        <tr className="border-b border-slate-200 bg-slate-50/50">
+                        <tr className="border-b border-borderMain bg-surfaceHover/50">
                             <th className="text-left p-4 font-semibold text-textMain">Service</th>
                             <th className="text-right p-4 font-semibold text-textMain">Total Cost</th>
                             <th className="text-right p-4 font-semibold text-textMain">% of Total</th>
@@ -64,7 +64,7 @@ export default function CostExplorer() {
                                 const totalCost = costs.reduce((sum, c) => sum + c.cost, 0);
                                 const percentage = ((item.cost / totalCost) * 100).toFixed(1);
                                 return (
-                                    <tr key={index} className="border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
+                                    <tr key={index} className="border-b border-borderLight hover:bg-surfaceHover/50 transition-colors">
                                         <td className="p-4 text-textMain font-medium">{item.service}</td>
                                         <td className="p-4 text-right text-textMain">${item.cost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
                                         <td className="p-4 text-right">

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { AlertTriangle, CheckCircle, Clock } from 'lucide-react';
+import { AlertTriangle, ShieldAlert, CheckCircle } from 'lucide-react';
 import api from '../../api/axios';
 
 export default function Alerts() {
@@ -13,12 +13,6 @@ export default function Alerts() {
         }).catch(() => setLoading(false));
     }, []);
 
-    const statusConfig = {
-        triggered: { icon: AlertTriangle, color: 'text-red-500', bg: 'bg-red-50', border: 'border-red-100' },
-        active: { icon: Clock, color: 'text-amber-500', bg: 'bg-amber-50', border: 'border-amber-100' },
-        resolved: { icon: CheckCircle, color: 'text-emerald-500', bg: 'bg-emerald-50', border: 'border-emerald-100' },
-    };
-
     if (loading) return <div className="text-textMuted">Loading alerts...</div>;
 
     return (
@@ -26,26 +20,51 @@ export default function Alerts() {
             <h2 className="text-xl font-bold text-textMain">Alerts</h2>
 
             {alerts.length === 0 ? (
-                <p className="text-textMuted">No alerts configured yet.</p>
+                <div className="bg-surface border border-borderMain rounded-2xl p-10 text-center">
+                    <CheckCircle size={32} className="mx-auto text-emerald-400 mb-3" />
+                    <p className="text-textMuted">No alerts have been triggered yet. Create a budget and alerts will appear here when thresholds are crossed.</p>
+                </div>
             ) : (
                 <div className="space-y-3">
                     {alerts.map((alert) => {
-                        const config = statusConfig[alert.status] || statusConfig.active;
-                        const Icon = config.icon;
+                        const isCritical = alert.severity === 'critical';
+                        const budgetName = alert.budgetId?.name || 'Deleted Budget';
+                        const provider = alert.budgetId?.provider || '';
+                        const budgetAmount = alert.budgetId?.amount;
 
                         return (
-                            <div key={alert._id} className={`flex items-center gap-4 p-4 rounded-2xl border ${config.bg} ${config.border}`}>
-                                <div className={`p-2 rounded-xl ${config.bg}`}>
-                                    <Icon size={20} className={config.color} />
+                            <div 
+                                key={alert._id} 
+                                className={`flex items-center gap-4 p-4 rounded-2xl border bg-surface ${
+                                    isCritical 
+                                        ? 'border-red-200 dark:border-red-500/30' 
+                                        : 'border-amber-200 dark:border-amber-500/30'
+                                } ${alert.isRead ? 'opacity-60' : ''}`}
+                            >
+                                <div className={`p-2 rounded-xl ${isCritical ? 'bg-red-50 dark:bg-red-500/10' : 'bg-amber-50 dark:bg-amber-500/10'}`}>
+                                    {isCritical 
+                                        ? <ShieldAlert size={20} className="text-red-500" />
+                                        : <AlertTriangle size={20} className="text-amber-500" />
+                                    }
                                 </div>
                                 <div className="flex-1">
-                                    <p className="font-semibold text-textMain text-sm">{alert.name}</p>
+                                    <p className="font-semibold text-textMain text-sm">
+                                        {budgetName} crossed {alert.thresholdCrossed}% threshold
+                                    </p>
                                     <p className="text-xs text-textMuted mt-0.5">
-                                        {alert.provider} · Threshold: ${alert.threshold?.toLocaleString()} · {alert.condition}
+                                        {provider && `${provider} · `}
+                                        Spent ${alert.currentSpend?.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+                                        {budgetAmount && ` of ${budgetAmount.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}`}
+                                        {' · '}
+                                        {new Date(alert.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                                     </p>
                                 </div>
-                                <span className={`text-xs font-semibold uppercase tracking-wider ${config.color}`}>
-                                    {alert.status}
+                                <span className={`text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded-lg ${
+                                    isCritical 
+                                        ? 'text-red-600 bg-red-50 dark:bg-red-500/10' 
+                                        : 'text-amber-600 bg-amber-50 dark:bg-amber-500/10'
+                                }`}>
+                                    {alert.severity}
                                 </span>
                             </div>
                         );

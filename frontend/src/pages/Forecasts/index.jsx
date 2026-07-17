@@ -96,7 +96,7 @@ export default function Forecasts() {
             </div>
 
             {/* ─── Forecast Chart ─── */}
-            <div className="bg-surface border border-slate-200 p-6 rounded-2xl shadow-sm">
+            <div className="bg-surface border border-borderMain p-6 rounded-2xl shadow-sm">
                 <div className="flex items-center gap-2 mb-4">
                     <TrendingUp size={18} className="text-primary" />
                     <h3 className="font-semibold text-textMain">Cost Forecast</h3>
@@ -155,21 +155,21 @@ export default function Forecasts() {
                 {/* Stats Cards */}
                 {!anomalyLoading && !anomalyError && anomalies.length > 0 && (
                     <div className="grid grid-cols-3 gap-4">
-                        <div className="bg-surface border border-slate-200 p-4 rounded-xl shadow-sm">
+                        <div className="bg-surface border border-borderMain p-4 rounded-xl shadow-sm">
                             <div className="flex items-center gap-2 text-textMuted text-xs mb-1">
                                 <AlertTriangle size={14} />
                                 Anomalies Detected
                             </div>
                             <p className="text-2xl font-bold text-textMain">{anomalies.length}</p>
                         </div>
-                        <div className="bg-surface border border-slate-200 p-4 rounded-xl shadow-sm">
+                        <div className="bg-surface border border-borderMain p-4 rounded-xl shadow-sm">
                             <div className="flex items-center gap-2 text-textMuted text-xs mb-1">
                                 <Zap size={14} />
                                 Total Anomalous Spend
                             </div>
                             <p className="text-2xl font-bold text-red-600">${totalAnomalyCost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                         </div>
-                        <div className="bg-surface border border-slate-200 p-4 rounded-xl shadow-sm">
+                        <div className="bg-surface border border-borderMain p-4 rounded-xl shadow-sm">
                             <div className="flex items-center gap-2 text-textMuted text-xs mb-1">
                                 <AlertTriangle size={14} className="text-red-500" />
                                 Critical Spikes
@@ -180,7 +180,7 @@ export default function Forecasts() {
                 )}
 
                 {/* Anomaly Table */}
-                <div className="bg-surface border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+                <div className="bg-surface border border-borderMain rounded-2xl shadow-sm overflow-hidden">
                     {anomalyLoading ? (
                         <div className="p-8 text-center text-textMuted text-sm">
                             <div className="flex items-center justify-center gap-2">
@@ -200,7 +200,7 @@ export default function Forecasts() {
                     ) : (
                         <table className="w-full">
                             <thead>
-                                <tr className="border-b border-slate-200 bg-slate-50">
+                                <tr className="border-b border-borderMain bg-surfaceHover">
                                     <th className="text-left text-xs font-medium text-textMuted px-6 py-3">Date</th>
                                     <th className="text-left text-xs font-medium text-textMuted px-6 py-3">Anomalous Cost</th>
                                     <th className="text-left text-xs font-medium text-textMuted px-6 py-3">Severity</th>
@@ -213,7 +213,7 @@ export default function Forecasts() {
                                     const avgCost = totalAnomalyCost / anomalies.length;
                                     const deviation = ((anomaly.cost - avgCost) / avgCost * 100).toFixed(0);
                                     return (
-                                        <tr key={i} className="border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors">
+                                        <tr key={i} className="border-b border-borderLight last:border-0 hover:bg-surfaceHover transition-colors">
                                             <td className="px-6 py-4 text-sm text-textMain font-medium">{formatDate(anomaly.date)}</td>
                                             <td className="px-6 py-4 text-sm font-semibold text-red-600">${anomaly.cost.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
                                             <td className="px-6 py-4">

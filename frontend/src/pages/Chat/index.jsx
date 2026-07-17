@@ -68,7 +68,7 @@ export default function Chat() {
                         <div className={`max-w-[75%] p-4 rounded-2xl text-sm leading-relaxed ${
                             msg.role === 'user'
                                 ? 'bg-primary text-white rounded-tr-md'
-                                : 'bg-white text-textMain rounded-tl-md border border-slate-200 shadow-sm'
+                                : 'bg-surface text-textMain rounded-tl-md border border-borderMain shadow-sm'
                         }`}>
                             {msg.role === 'assistant' ? (
                                 <div className="chat-markdown">
@@ -82,7 +82,7 @@ export default function Chat() {
                                             h1: ({ children }) => <h1 className="text-base font-bold mt-3 mb-1">{children}</h1>,
                                             h2: ({ children }) => <h2 className="text-sm font-bold mt-3 mb-1">{children}</h2>,
                                             h3: ({ children }) => <h3 className="text-sm font-semibold mt-2 mb-1">{children}</h3>,
-                                            code: ({ children }) => <code className="bg-slate-100 text-primary px-1.5 py-0.5 rounded text-xs font-mono">{children}</code>,
+                                            code: ({ children }) => <code className="bg-surfaceHover text-primary px-1.5 py-0.5 rounded text-xs font-mono">{children}</code>,
                                         }}
                                     >
                                         {msg.text}
@@ -101,7 +101,7 @@ export default function Chat() {
                         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center shrink-0 mt-1">
                             <Bot size={16} className="text-white" />
                         </div>
-                        <div className="bg-white text-textMuted p-4 rounded-2xl rounded-tl-md text-sm border border-slate-200 shadow-sm">
+                        <div className="bg-surface text-textMuted p-4 rounded-2xl rounded-tl-md text-sm border border-borderMain shadow-sm">
                             <div className="flex items-center gap-1.5">
                                 <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
                                 <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
@@ -115,7 +115,7 @@ export default function Chat() {
             </div>
 
             {/* Input Box */}
-            <div className="flex gap-3 bg-white p-3 rounded-2xl border border-slate-200 shadow-sm">
+            <div className="flex gap-3 bg-surface p-3 rounded-2xl border border-borderMain shadow-sm">
                 <input
                     type="text"
                     value={input}

@@ -1,26 +1,55 @@
 @import "tailwindcss";
 
+:root {
+  /* Light Mode Variables */
+  --color-bg-base: #F8FAFC; /* slate-50 */
+  --color-bg-surface: #FFFFFF;
+  --color-bg-surface-hover: #F1F5F9; /* slate-100 */
+  
+  --color-border-main: #E2E8F0; /* slate-200 */
+  --color-border-light: #F1F5F9; /* slate-100 */
+  
+  --color-text-main: #0F172A; /* slate-900 */
+  --color-text-muted: #64748B; /* slate-500 */
+  --color-text-light: #94A3B8; /* slate-400 */
+}
+
+.dark {
+  /* Dark Mode Variables */
+  --color-bg-base: #020617; /* slate-950 */
+  --color-bg-surface: #0F172A; /* slate-900 */
+  --color-bg-surface-hover: #1E293B; /* slate-800 */
+  
+  --color-border-main: #334155; /* slate-700 */
+  --color-border-light: #1E293B; /* slate-800 */
+  
+  --color-text-main: #F8FAFC; /* slate-50 */
+  --color-text-muted: #94A3B8; /* slate-400 */
+  --color-text-light: #64748B; /* slate-500 */
+}
+
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
 
-  /* Backgrounds: Clean White and Light Gray */
-  --color-background: #FFFFFF;
-  --color-surface: #F8FAFC;
-  --color-surfaceHover: #F1F5F9;
+  /* Theme Mapping */
+  --color-background: var(--color-bg-base);
+  --color-surface: var(--color-bg-surface);
+  --color-surfaceHover: var(--color-bg-surface-hover);
+  --color-borderMain: var(--color-border-main);
+  --color-borderLight: var(--color-border-light);
+  --color-textMain: var(--color-text-main);
+  --color-textMuted: var(--color-text-muted);
+  --color-textLight: var(--color-text-light);
   
-  /* Accents: Professional Blue Theme */
+  /* Accents: Professional Blue Theme (stays mostly same) */
   --color-primary: #2563EB; /* Blue-600 */
   --color-primaryGlow: rgba(37, 99, 235, 0.15);
   --color-secondary: #0284C7; /* Light Blue-600 */
   
-  /* Cloud Provider Specific Colors (Slightly darkened for contrast on white) */
+  /* Cloud Provider Specific Colors */
   --color-aws: #E67E22;
   --color-azure: #0078D4;
   --color-gcp: #D93025;
-  
-  /* Text: Dark Slate for readability */
-  --color-textMain: #0F172A;
-  --color-textMuted: #475569;
 }
 
 body {

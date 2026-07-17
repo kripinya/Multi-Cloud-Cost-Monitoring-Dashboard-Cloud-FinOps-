@@ -82,7 +82,7 @@ export default function Budgets() {
                         const ratio = Math.min((spent / limit) * 100, 100);
 
                         return (
-                            <div key={budget._id} className="bg-surface border border-slate-200 rounded-2xl p-6 shadow-sm relative group">
+                            <div key={budget._id} className="bg-surface border border-borderMain rounded-2xl p-6 shadow-sm relative group">
                                 <button 
                                     onClick={() => handleDelete(budget._id)}
                                     className="absolute top-4 right-4 text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -118,10 +118,10 @@ export default function Budgets() {
             {/* Create Budget Modal */}
             {showModal && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
-                        <div className="flex justify-between items-center p-6 border-b border-slate-100">
-                            <h3 className="text-lg font-bold text-slate-800">Create New Budget</h3>
-                            <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-slate-600">
+                    <div className="bg-surface rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+                        <div className="flex justify-between items-center p-6 border-b border-borderLight">
+                            <h3 className="text-lg font-bold text-textMain">Create New Budget</h3>
+                            <button onClick={() => setShowModal(false)} className="text-textLight hover:text-slate-600">
                                 <X size={20} />
                             </button>
                         </div>
@@ -134,7 +134,7 @@ export default function Budgets() {
                                     required 
                                     value={formData.name}
                                     onChange={(e) => setFormData({...formData, name: e.target.value})}
-                                    className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                                    className="w-full px-3 py-2 border border-borderMain rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
                                     placeholder="e.g. Q3 AWS Production"
                                 />
                             </div>
@@ -145,7 +145,7 @@ export default function Budgets() {
                                     <select 
                                         value={formData.provider}
                                         onChange={(e) => setFormData({...formData, provider: e.target.value})}
-                                        className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white"
+                                        className="w-full px-3 py-2 border border-borderMain rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 bg-surface"
                                     >
                                         <option value="AWS">AWS</option>
                                         <option value="Azure">Azure</option>
@@ -161,7 +161,7 @@ export default function Budgets() {
                                         min="1"
                                         value={formData.amount}
                                         onChange={(e) => setFormData({...formData, amount: e.target.value})}
-                                        className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                                        className="w-full px-3 py-2 border border-borderMain rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
                                         placeholder="5000"
                                     />
                                 </div>
@@ -171,7 +171,7 @@ export default function Budgets() {
                                 <button 
                                     type="button" 
                                     onClick={() => setShowModal(false)}
-                                    className="flex-1 px-4 py-2 border border-slate-200 text-slate-600 rounded-lg font-medium hover:bg-slate-50 transition-colors"
+                                    className="flex-1 px-4 py-2 border border-borderMain text-slate-600 rounded-lg font-medium hover:bg-surfaceHover transition-colors"
                                 >
                                     Cancel
                                 </button>

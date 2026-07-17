@@ -34,7 +34,7 @@ export default function CostChart() {
     }, []);
 
     return (
-        <div className="bg-surface border border-slate-200 p-6 rounded-2xl shadow-sm h-[400px]">
+        <div className="bg-surface border border-borderMain p-6 rounded-2xl shadow-sm h-[400px]">
             <h3 className="text-lg font-semibold text-textMain mb-6">6-Month Cost Trend</h3>
 
             <ResponsiveContainer width="100%" height="100%">
