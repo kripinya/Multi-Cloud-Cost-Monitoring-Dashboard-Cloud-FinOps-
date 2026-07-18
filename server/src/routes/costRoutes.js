@@ -14,5 +14,6 @@ router.get('/by-service', costController.getCostsByService);
 router.get('/by-provider', costController.getCostsByProvider);
 router.get('/by-region', costController.getCostsByRegion);
 router.get('/trend', costController.getTrend);
+router.get('/by-tag', costController.getCostsByTag);
 
 module.exports = router;

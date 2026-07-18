@@ -4,30 +4,38 @@ const CostRecord = require('../models/CostRecord');
 // Returns: total spend + per-provider spend for the current month
 const getSummary = async (req, res) => {
     try {
-        // Get start of current month
         const now = new Date();
         const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const startOfLastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
 
-        // MongoDB aggregation pipeline — groups all records by provider and sums cost
+        // Current month totals
         const providerTotals = await CostRecord.aggregate([
-            { $match: { date: { $gte: startOfMonth } } },       // filter: this month only
-            { $group: { _id: '$provider', total: { $sum: '$cost' } } }  // group by provider, sum cost
+            { $match: { date: { $gte: startOfMonth } } },
+            { $group: { _id: '$provider', total: { $sum: '$cost' } } }
         ]);
 
-        // Transform the result into a clean object
-        const summary = {
-            totalSpend: 0,
-            aws: 0,
-            azure: 0,
-            gcp: 0
-        };
+        // Previous month totals for % change calculation
+        const prevTotals = await CostRecord.aggregate([
+            { $match: { date: { $gte: startOfLastMonth, $lt: startOfMonth } } },
+            { $group: { _id: '$provider', total: { $sum: '$cost' } } }
+        ]);
+
+        const prevMap = {};
+        prevTotals.forEach(item => { prevMap[item._id.toLowerCase()] = Math.round(item.total * 100) / 100; });
+
+        const summary = { totalSpend: 0, aws: 0, azure: 0, gcp: 0, changes: {} };
 
         providerTotals.forEach(item => {
+            const key = item._id.toLowerCase();
             const amount = Math.round(item.total * 100) / 100;
-            summary[item._id.toLowerCase()] = amount;
+            summary[key] = amount;
             summary.totalSpend += amount;
+            const prev = prevMap[key] || 0;
+            summary.changes[key] = prev > 0 ? Math.round(((amount - prev) / prev) * 1000) / 10 : 0;
         });
         summary.totalSpend = Math.round(summary.totalSpend * 100) / 100;
+        const prevTotal = Object.values(prevMap).reduce((s, v) => s + v, 0);
+        summary.changes.total = prevTotal > 0 ? Math.round(((summary.totalSpend - prevTotal) / prevTotal) * 1000) / 10 : 0;
 
         res.json(summary);
     } catch (error) {
@@ -178,6 +186,33 @@ const getTrend = async (req, res) => {
     }
 };
 
+// GET /api/costs/by-tag?groupBy=project|team|environment&provider=AWS
+// Returns: array of { tag, cost } grouped by the specified tag field
+const getCostsByTag = async (req, res) => {
+    try {
+        const { groupBy = 'project', provider } = req.query;
+        const validTags = ['project', 'team', 'environment'];
+        if (!validTags.includes(groupBy)) {
+            return res.status(400).json({ error: `Invalid groupBy. Use: ${validTags.join(', ')}` });
+        }
+
+        const filter = {};
+        if (provider && provider !== 'all') filter.provider = provider;
+
+        const tagCosts = await CostRecord.aggregate([
+            { $match: filter },
+            { $group: { _id: `$tags.${groupBy}`, cost: { $sum: '$cost' } } },
+            { $sort: { cost: -1 } },
+            { $project: { _id: 0, tag: '$_id', cost: { $round: ['$cost', 2] } } }
+        ]);
+
+        res.json(tagCosts);
+    } catch (error) {
+        console.error('Error in getCostsByTag:', error);
+        res.status(500).json({ error: 'Failed to fetch costs by tag' });
+    }
+};
+
 // Export all functions
 module.exports = {
     getSummary,
@@ -185,5 +220,6 @@ module.exports = {
     getCostsByService,
     getCostsByProvider,
     getCostsByRegion,
-    getTrend
+    getTrend,
+    getCostsByTag
 };
