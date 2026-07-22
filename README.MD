@@ -4,7 +4,7 @@
 
 ### Multi-Cloud Cost Monitoring Dashboard — Cloud FinOps
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-vyayadrishti.vercel.app-2563EB?style=for-the-badge)] (https://vyayadrishti.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-vyayadrishti.vercel.app-2563EB?style=for-the-badge)](https://vyayadrishti.vercel.app/login)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/kripinya/Multi-Cloud-Cost-Monitoring-Dashboard-Cloud-FinOps-)
 
 **VyayaDrishti** (व्ययदृष्टि — *"Expenditure Insight"*) is an AI-powered FinOps platform that consolidates billing data across **AWS, Azure, and GCP** into a single, unified dashboard. It leverages **Machine Learning** (Isolation Forest) for anomaly detection, **Agentic AI** (Google Gemini) for conversational cost optimization, and **automated email alerts** for budget overrun notifications.
