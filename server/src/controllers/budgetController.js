@@ -1,9 +1,12 @@
 const Budget = require('../models/Budget');
 const CostRecord = require('../models/CostRecord');
 const Alert = require('../models/Alert');
+const { sendAlertEmail } = require('../services/emailService');
+
+const User = require('../models/User');
 
 // Helper: Check budget thresholds and create alerts if needed
-const checkAndCreateAlerts = async (budget, currentSpend) => {
+const checkAndCreateAlerts = async (budget, currentSpend, recipientEmail) => {
     const utilization = (currentSpend / budget.amount) * 100;
 
     for (const threshold of budget.alertThresholds) {
@@ -23,6 +26,17 @@ const checkAndCreateAlerts = async (budget, currentSpend) => {
                     severity: severity
                 });
                 console.log(`Alert created: Budget "${budget.name}" crossed ${threshold}% (${severity})`);
+
+                // Fire email notification in the background (non-blocking)
+                sendAlertEmail({
+                    budgetName: budget.name,
+                    provider: budget.provider,
+                    threshold,
+                    severity,
+                    currentSpend,
+                    budgetAmount: budget.amount,
+                    recipientEmail
+                });
             }
         }
     }
@@ -32,6 +46,10 @@ const checkAndCreateAlerts = async (budget, currentSpend) => {
 const getAllBudgets = async (req, res) => {
     try {
         const budgets = await Budget.find();
+        
+        // Find the user making the request to get their email address
+        const user = await User.findById(req.userId);
+        const recipientEmail = user ? user.email : null;
 
         // For each budget, calculate the current month's spend for that provider
         const now = new Date();
@@ -51,7 +69,11 @@ const getAllBudgets = async (req, res) => {
             const currentSpend = result.length > 0 ? Math.round(result[0].total * 100) / 100 : 0;
 
             // Check thresholds and create alerts automatically
-            await checkAndCreateAlerts(budget, currentSpend);
+            if (recipientEmail) {
+                await checkAndCreateAlerts(budget, currentSpend, recipientEmail);
+            } else {
+                await checkAndCreateAlerts(budget, currentSpend);
+            }
 
             return {
                 ...budget.toObject(),

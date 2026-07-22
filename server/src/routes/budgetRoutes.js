@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const budgetController = require('../controllers/budgetController');
+const authMiddleware = require('../middleware/auth');
 
-router.get('/', budgetController.getAllBudgets);
-router.post('/', budgetController.createBudget);
-router.put('/:id', budgetController.updateBudget);
-router.delete('/:id', budgetController.deleteBudget);
+router.get('/', authMiddleware, budgetController.getAllBudgets);
+router.post('/', authMiddleware, budgetController.createBudget);
+router.put('/:id', authMiddleware, budgetController.updateBudget);
+router.delete('/:id', authMiddleware, budgetController.deleteBudget);
 
 module.exports = router;
