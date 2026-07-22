@@ -31,7 +31,8 @@ export default function Chat() {
         setLoading(true);
 
         try {
-            const response = await fetch('http://localhost:5001/api/ml/chat', {
+            const mlApiUrl = import.meta.env.VITE_ML_API_URL || 'http://localhost:5001/api/ml';
+            const response = await fetch(`${mlApiUrl}/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: userMessage }),
