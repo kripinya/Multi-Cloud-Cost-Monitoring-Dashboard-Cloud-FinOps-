@@ -393,6 +393,14 @@ graph LR
 | **Priority** | Medium |
 | **Description** | Header notification bell shall show count of unread/recent alerts as a red badge |
 
+#### FR-6.6: Email Alert Notifications
+| Field | Specification |
+|---|---|
+| **ID** | FR-6.6 |
+| **Priority** | Medium |
+| **Description** | When a budget threshold is crossed, system shall send an automated email alert to the logged-in user's registered email address via Nodemailer (Gmail SMTP). The email shall include a branded HTML template with severity badge, current spend vs. budget statistics, and a utilization progress bar. |
+| **Dependency** | Gmail App Password configured in server environment variables |
+
 ---
 
 ### 3.7 Module 7: Recommendation Engine
@@ -503,7 +511,7 @@ graph LR
 │ ▸ Recommendations│                                       │
 │ ▸ Reports        │                                       │
 │ ▸ Settings       │                                       │
-│                  │                           🤖 Chat FAB │
+│                  │                            Chat FAB │
 └──────────────────┴───────────────────────────────────────┘
 ```
 
@@ -875,7 +883,8 @@ erDiagram
 | AC-16 | API performance | Cost summary endpoint responds in ≤ 1.5 seconds |
 | AC-17 | Security | Accessing API without JWT returns 401 Unauthorized |
 | AC-18 | Error handling | Invalid API requests return structured error JSON, not stack traces |
-| AC-19 | Deployment | Application is accessible via public URL (Vercel + Render) |
+| AC-19 | Deployment | Application is accessible via public URL (Vercel: https://vyayadrishti.vercel.app) |
+| AC-20 | Email alerts | Budget threshold crossing triggers email to user's registered address |
 
 ---
 

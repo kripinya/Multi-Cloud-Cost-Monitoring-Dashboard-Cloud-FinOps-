@@ -128,10 +128,11 @@ We use a microservice approach where the frontend, backend API, and ML service a
 | Service | Port | Technology | What It Does |
 |---|---|---|---|
 | Frontend | 3000 | React + Vite | Renders the dashboard UI in the browser |
-| Backend API | 5000 | Node.js + Express | Handles REST API requests, authentication, and agent orchestration |
+| Backend API | 4000 | Node.js + Express | Handles REST API requests, authentication, and agent orchestration |
 | ML Service | 5001 | Python + Flask | Runs the anomaly detection and forecasting models |
 | Database | Cloud | MongoDB Atlas | Stores all billing records, budgets, alerts, and user data |
 | AI Service | External | Google Gemini API | Provides LLM inference and function-calling for the chatbot |
+| Email | External | Nodemailer + Gmail SMTP | Sends automated budget alert email notifications to users |
 
 This separation means the ML models can be updated or scaled without touching the main application, and the frontend can be deployed to a CDN independently of the backend.
 
@@ -154,8 +155,8 @@ This module takes historical daily cost data and projects it forward for the nex
 ### Module 5: Agentic AI FinOps Chatbot
 This is the most technically ambitious module. It implements an AI agent that can hold a conversation with the user about their cloud costs, but unlike a simple chatbot that generates text from its training data, this agent has access to tools — database queries, anomaly detection functions, budget creation endpoints — that it can invoke autonomously during the conversation. The architecture follows the ReAct pattern: the user asks a question, the LLM reasons about what information it needs, calls the appropriate tool (via Gemini's function-calling API), receives the result, and then generates a natural language response grounded in actual data. This means when a user asks "What was our most expensive service last month?", the agent does not guess — it queries the database and reports the real number. The agent also powers the AI Insights feature on the Overview page, generating four plain-English observations about current spending patterns.
 
-### Module 6: Budget Management and Alerting
-This module lets users create spending budgets for individual providers or across all providers, set threshold percentages for alerts (typically at 80, 90, and 100 percent utilization), and track how close they are to hitting those limits. When a threshold is crossed, an alert record is created and the notification count in the header updates. The Budgets page shows each budget as a gauge chart, color-coded green (under 80%), orange (80 to 99%), or red (at or above 100%). An alert history log provides a chronological record of all triggered alerts.
+### Module 6: Budget Management, Alerting, and Email Notifications
+This module lets users create spending budgets for individual providers or across all providers, set threshold percentages for alerts (typically at 80, 90, and 100 percent utilization), and track how close they are to hitting those limits. When a threshold is crossed, an alert record is created, the notification count in the header updates, and an automated email alert is sent to the logged-in user's registered email address via Nodemailer (Gmail SMTP). The email uses a professionally styled HTML template with the VyayaDrishti branding, a color-coded severity badge, current spend vs. budget statistics, and a visual utilization bar. The Budgets page shows each budget as a gauge chart, color-coded green (under 80%), orange (80 to 99%), or red (at or above 100%). An alert history log provides a chronological record of all triggered alerts.
 
 ### Module 7: Recommendation Engine
 The recommendation engine combines rule-based heuristics with optional AI-enhanced analysis. Five core rules are applied against the cost data: idle resource detection (service cost under $5/day for 30+ consecutive days), right-sizing suggestions (compute costs above $200/day), reserved instance opportunities (steady usage over 3+ months), storage cleanup alerts (storage costs growing faster than 20% per month), and region optimization (high costs in premium regions for non-latency-sensitive workloads). Each recommendation includes a title, description, the affected provider and service, estimated monthly savings in dollars, and a priority tag (High, Medium, or Low). Users can also trigger a deeper AI analysis that sends the cost data to Gemini for additional, context-aware suggestions.
@@ -188,6 +189,8 @@ This module handles the creation of downloadable cost reports. Users select a da
 | **Database** | MongoDB Atlas | 7.x | Free tier provides 512 MB, which is more than enough; flexible schema works well for billing data that varies across providers |
 | **Deployment** | Vercel | - | One-click deployment for the React frontend |
 | | Render | - | Free tier hosting for Node.js and Python services |
+| **DevOps** | Docker + Docker Compose | - | Multi-container orchestration for local development |
+| **Email** | Nodemailer | 6.x | Sends automated budget alert emails via Gmail SMTP |
 
 ---
 
