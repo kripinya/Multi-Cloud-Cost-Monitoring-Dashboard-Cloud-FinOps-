@@ -1,0 +1,44 @@
+services:
+  # Node.js API Backend
+  - type: web
+    name: vyayadrishti-backend
+    env: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false # You will paste this in Render dashboard
+      - key: JWT_SECRET
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_APP_PASSWORD
+        sync: false
+      - key: EMAIL_RECIPIENT
+        sync: false
+      - key: ML_SERVICE_URL
+        # This automatically links to the ML service below
+        fromService:
+          type: web
+          name: vyayadrishti-ml
+          envVarKey: RENDER_EXTERNAL_URL
+
+  # Python ML Service
+  - type: web
+    name: vyayadrishti-ml
+    env: python
+    rootDir: ml-service
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -b 0.0.0.0:$PORT app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: PORT
+        value: 10000
