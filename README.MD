@@ -96,7 +96,7 @@
 | **AI Chat** | Google Gemini API (`gemini-flash-lite-latest`) |
 | **Email** | Nodemailer (Gmail SMTP) |
 | **DevOps** | Docker, Docker Compose, Nginx |
-| **Deployment** | Vercel (Frontend), Render-ready (Backend + ML) |
+| **Deployment** | Vercel (Frontend), Render (Backend API + ML Service) |
 
 ---
 
@@ -296,7 +296,7 @@ VyayaDrishti uses a programmatic **Seed Generator** to simulate 6 months of real
 - [x] AI Chat Assistant (Google Gemini API)
 - [x] Email Alert Notifications (Nodemailer + Gmail)
 - [x] Vercel Deployment (Frontend)
-- [x] Render Deployment Blueprint (Backend + ML)
+- [x] Render Deployment (Node.js Backend + Python ML Service)
 - [ ] Real CSP billing API integration (AWS Cost Explorer, Azure Cost Management, GCP Billing)
 
 ---
