@@ -50,7 +50,46 @@ export default function Dashboard() {
     };
 
     if (loading) {
-        return <div className="p-8 text-textMuted">Loading your cloud costs...</div>;
+        return (
+            <div className="space-y-6">
+                {/* Skeleton Metric Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    {[...Array(4)].map((_, i) => (
+                        <div key={i} className="bg-surface border border-borderMain p-6 rounded-2xl">
+                            <div className="h-3 w-24 bg-borderMain rounded animate-pulse mb-3" />
+                            <div className="h-8 w-36 bg-borderMain rounded animate-pulse mb-2" />
+                            <div className="h-3 w-28 bg-borderMain rounded animate-pulse" />
+                        </div>
+                    ))}
+                </div>
+                {/* Skeleton Chart Area */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div className="lg:col-span-2 bg-surface border border-borderMain p-6 rounded-2xl h-[340px]">
+                        <div className="h-4 w-32 bg-borderMain rounded animate-pulse mb-6" />
+                        <div className="flex items-end gap-3 h-[250px]">
+                            {[60, 80, 45, 90, 70, 85].map((h, i) => (
+                                <div key={i} className="flex-1 bg-borderMain rounded-t animate-pulse" style={{ height: `${h}%` }} />
+                            ))}
+                        </div>
+                    </div>
+                    <div className="bg-surface border border-borderMain p-6 rounded-2xl">
+                        <div className="h-4 w-40 bg-borderMain rounded animate-pulse mb-4" />
+                        <div className="w-40 h-40 rounded-full bg-borderMain animate-pulse mx-auto" />
+                    </div>
+                </div>
+                {/* Skeleton Table */}
+                <div className="bg-surface border border-borderMain rounded-2xl p-6">
+                    <div className="h-4 w-48 bg-borderMain rounded animate-pulse mb-4" />
+                    {[...Array(5)].map((_, i) => (
+                        <div key={i} className="flex items-center justify-between py-3 border-b border-borderLight last:border-0">
+                            <div className="h-3 w-28 bg-borderMain rounded animate-pulse" />
+                            <div className="h-3 w-20 bg-borderMain rounded animate-pulse" />
+                            <div className="h-2 w-24 bg-borderMain rounded-full animate-pulse" />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
     }
 
     const totalServiceCost = topServices.reduce((sum, s) => sum + s.cost, 0);

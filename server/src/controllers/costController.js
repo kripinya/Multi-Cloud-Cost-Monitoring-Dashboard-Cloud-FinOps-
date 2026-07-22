@@ -87,14 +87,19 @@ const getDailyCosts = async (req, res) => {
     }
 };
 
-// GET /api/costs/by-service?provider=AWS
+// GET /api/costs/by-service?provider=AWS&from=2026-01-01&to=2026-06-25
 // Returns: array of { service, cost } for the donut chart
 const getCostsByService = async (req, res) => {
     try {
-        const { provider } = req.query;
+        const { provider, from, to } = req.query;
         const filter = {};
         if (provider && provider !== 'all') {
             filter.provider = provider;
+        }
+        if (from || to) {
+            filter.date = {};
+            if (from) filter.date.$gte = new Date(from);
+            if (to) filter.date.$lte = new Date(to);
         }
 
         const serviceCosts = await CostRecord.aggregate([
@@ -186,11 +191,11 @@ const getTrend = async (req, res) => {
     }
 };
 
-// GET /api/costs/by-tag?groupBy=project|team|environment&provider=AWS
+// GET /api/costs/by-tag?groupBy=project|team|environment&provider=AWS&from=2026-01-01&to=2026-06-25
 // Returns: array of { tag, cost } grouped by the specified tag field
 const getCostsByTag = async (req, res) => {
     try {
-        const { groupBy = 'project', provider } = req.query;
+        const { groupBy = 'project', provider, from, to } = req.query;
         const validTags = ['project', 'team', 'environment'];
         if (!validTags.includes(groupBy)) {
             return res.status(400).json({ error: `Invalid groupBy. Use: ${validTags.join(', ')}` });
@@ -198,6 +203,11 @@ const getCostsByTag = async (req, res) => {
 
         const filter = {};
         if (provider && provider !== 'all') filter.provider = provider;
+        if (from || to) {
+            filter.date = {};
+            if (from) filter.date.$gte = new Date(from);
+            if (to) filter.date.$lte = new Date(to);
+        }
 
         const tagCosts = await CostRecord.aggregate([
             { $match: filter },

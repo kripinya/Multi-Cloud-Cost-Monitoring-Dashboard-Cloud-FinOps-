@@ -1,6 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User } from 'lucide-react';
+import { Send, Bot, User, TrendingDown, AlertTriangle, DollarSign, BarChart3 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+
+const STARTER_PROMPTS = [
+    { icon: TrendingDown, label: 'Top cost drivers', prompt: 'What are my top 3 cost drivers across all clouds and how can I reduce them?' },
+    { icon: AlertTriangle, label: 'Find waste', prompt: 'Identify potential wasted or idle resources across AWS, Azure, and GCP' },
+    { icon: DollarSign, label: 'Monthly comparison', prompt: 'Compare my current month spending to last month and highlight the biggest changes' },
+    { icon: BarChart3, label: 'Optimize architecture', prompt: 'Suggest architectural changes to reduce my cloud bill by 20%' },
+];
 
 export default function Chat() {
     const [messages, setMessages] = useState([
@@ -15,10 +22,10 @@ export default function Chat() {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages, loading]);
 
-    const sendMessage = async () => {
-        if (!input.trim() || loading) return;
+    const sendMessage = async (text) => {
+        const userMessage = (text || input).trim();
+        if (!userMessage || loading) return;
 
-        const userMessage = input.trim();
         setInput('');
         setMessages(prev => [...prev, { role: 'user', text: userMessage }]);
         setLoading(true);
@@ -37,6 +44,8 @@ export default function Chat() {
 
         setLoading(false);
     };
+
+    const showStarters = messages.length <= 1 && !loading;
 
     return (
         <div className="flex flex-col h-[calc(100vh-140px)]">
@@ -95,6 +104,25 @@ export default function Chat() {
                     </div>
                 ))}
 
+                {/* Starter Prompts — shown only when conversation is fresh */}
+                {showStarters && (
+                    <div className="grid grid-cols-2 gap-3 max-w-xl mx-auto mt-4">
+                        {STARTER_PROMPTS.map((item, i) => (
+                            <button
+                                key={i}
+                                onClick={() => sendMessage(item.prompt)}
+                                className="flex items-start gap-3 p-4 bg-surface border border-borderMain rounded-xl text-left hover:border-primary hover:shadow-md hover:shadow-primary/5 transition-all duration-200 group"
+                            >
+                                <item.icon size={18} className="text-primary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                                <div>
+                                    <div className="text-sm font-medium text-textMain">{item.label}</div>
+                                    <div className="text-xs text-textMuted mt-0.5 line-clamp-2">{item.prompt}</div>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+                )}
+
                 {/* Typing Indicator */}
                 {loading && (
                     <div className="flex gap-3">
@@ -125,7 +153,7 @@ export default function Chat() {
                     className="flex-1 px-3 py-2 bg-transparent text-sm text-textMain placeholder:text-textMuted focus:outline-none"
                 />
                 <button
-                    onClick={sendMessage}
+                    onClick={() => sendMessage()}
                     disabled={loading}
                     className="px-4 py-2 bg-primary text-white rounded-xl hover:opacity-90 transition-all disabled:opacity-50 flex items-center gap-2 text-sm font-medium"
                 >

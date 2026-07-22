@@ -5,6 +5,11 @@ import api from '../../api/axios';
 
 const PROVIDER_COLORS = ['var(--color-aws)', 'var(--color-azure)', 'var(--color-gcp)', 'var(--color-primary)', '#8B5CF6', '#EC4899', '#14B8A6', '#F59E0B'];
 
+// Skeleton loader component
+function SkeletonBar({ width = '100%' }) {
+    return <div className="h-3 rounded-full bg-borderMain animate-pulse" style={{ width }} />;
+}
+
 export default function CostExplorer() {
     const [costs, setCosts] = useState([]);
     const [provider, setProvider] = useState('all');
@@ -15,12 +20,14 @@ export default function CostExplorer() {
     const [dateFrom, setDateFrom] = useState('');
     const [dateTo, setDateTo] = useState('');
 
-    // Fetch service costs
+    // Fetch service costs — now uses dateFrom and dateTo
     const fetchCosts = useCallback(async () => {
         try {
             setLoading(true);
             const params = new URLSearchParams();
             if (provider !== 'all') params.append('provider', provider);
+            if (dateFrom) params.append('from', dateFrom);
+            if (dateTo) params.append('to', dateTo);
             const query = params.toString() ? `?${params.toString()}` : '';
             const response = await api.get(`/costs/by-service${query}`);
             setCosts(response.data);
@@ -29,14 +36,16 @@ export default function CostExplorer() {
         } finally {
             setLoading(false);
         }
-    }, [provider]);
+    }, [provider, dateFrom, dateTo]);
 
-    // Fetch tag-based costs
+    // Fetch tag-based costs — now uses dateFrom and dateTo
     const fetchTagData = useCallback(async () => {
         try {
             setTagLoading(true);
             const params = new URLSearchParams({ groupBy: tagGroup });
             if (provider !== 'all') params.append('provider', provider);
+            if (dateFrom) params.append('from', dateFrom);
+            if (dateTo) params.append('to', dateTo);
             const response = await api.get(`/costs/by-tag?${params.toString()}`);
             setTagData(response.data);
         } catch (error) {
@@ -44,7 +53,7 @@ export default function CostExplorer() {
         } finally {
             setTagLoading(false);
         }
-    }, [tagGroup, provider]);
+    }, [tagGroup, provider, dateFrom, dateTo]);
 
     useEffect(() => { fetchCosts(); }, [fetchCosts]);
     useEffect(() => { fetchTagData(); }, [fetchTagData]);
@@ -132,10 +141,21 @@ export default function CostExplorer() {
                 <div className="flex items-center gap-2 mb-4">
                     <Filter size={16} className="text-primary" />
                     <h3 className="font-semibold text-textMain">Cost by Service</h3>
-                    <span className="text-xs text-textMuted ml-auto">{provider === 'all' ? 'All Providers' : provider}</span>
+                    <span className="text-xs text-textMuted ml-auto">
+                        {provider === 'all' ? 'All Providers' : provider}
+                        {dateFrom && ` | From ${dateFrom}`}
+                        {dateTo && ` to ${dateTo}`}
+                    </span>
                 </div>
                 {loading ? (
-                    <div className="h-[280px] flex items-center justify-center text-textMuted text-sm">Loading chart...</div>
+                    <div className="h-[280px] flex flex-col justify-center gap-4 px-4">
+                        {[...Array(6)].map((_, i) => (
+                            <div key={i} className="flex items-center gap-4">
+                                <div className="w-24 h-3 bg-borderMain rounded animate-pulse" />
+                                <SkeletonBar width={`${80 - i * 10}%`} />
+                            </div>
+                        ))}
+                    </div>
                 ) : (
                     <div className="h-[280px]">
                         <ResponsiveContainer width="100%" height="100%">
@@ -170,9 +190,15 @@ export default function CostExplorer() {
                     </thead>
                     <tbody>
                         {loading ? (
-                            <tr><td colSpan="3" className="p-8 text-center text-textMuted">Loading...</td></tr>
+                            [...Array(5)].map((_, i) => (
+                                <tr key={i} className="border-b border-borderLight">
+                                    <td className="p-4"><div className="h-3 w-28 bg-borderMain rounded animate-pulse" /></td>
+                                    <td className="p-4 text-right"><div className="h-3 w-20 bg-borderMain rounded animate-pulse ml-auto" /></td>
+                                    <td className="p-4 text-right"><div className="h-2 w-24 bg-borderMain rounded-full animate-pulse ml-auto" /></td>
+                                </tr>
+                            ))
                         ) : costs.length === 0 ? (
-                            <tr><td colSpan="3" className="p-8 text-center text-textMuted">No cost data found.</td></tr>
+                            <tr><td colSpan="3" className="p-8 text-center text-textMuted">No cost data found for this range.</td></tr>
                         ) : (
                             costs.map((item, index) => {
                                 const percentage = totalCost > 0 ? ((item.cost / totalCost) * 100).toFixed(1) : 0;
@@ -230,7 +256,15 @@ export default function CostExplorer() {
                 </div>
 
                 {tagLoading ? (
-                    <div className="py-8 text-center text-textMuted text-sm">Loading tag data...</div>
+                    <div className="space-y-4 py-2">
+                        {[...Array(4)].map((_, i) => (
+                            <div key={i} className="flex items-center gap-4">
+                                <div className="w-28 h-3 bg-borderMain rounded animate-pulse" />
+                                <div className="flex-1 h-3 bg-borderMain rounded-full animate-pulse" style={{ maxWidth: `${90 - i * 15}%` }} />
+                                <div className="w-16 h-3 bg-borderMain rounded animate-pulse" />
+                            </div>
+                        ))}
+                    </div>
                 ) : (
                     <div className="space-y-3">
                         {tagData.map((item, i) => {
