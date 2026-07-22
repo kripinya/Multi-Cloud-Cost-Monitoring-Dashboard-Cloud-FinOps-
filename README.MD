@@ -1,10 +1,10 @@
 <div align="center">
 
-# ☁️ VyayaDrishti
+# VyayaDrishti
 
 ### Multi-Cloud Cost Monitoring Dashboard — Cloud FinOps
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-vyayadrishti.vercel.app-2563EB?style=for-the-badge)](https://vyayadrishti.vercel.app/login)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-vyayadrishti.vercel.app-2563EB?style=for-the-badge)](https://vyayadrishti.vercel.app/login)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/kripinya/Multi-Cloud-Cost-Monitoring-Dashboard-Cloud-FinOps-)
 
 **VyayaDrishti** (व्ययदृष्टि — *"Expenditure Insight"*) is an AI-powered FinOps platform that consolidates billing data across **AWS, Azure, and GCP** into a single, unified dashboard. It leverages **Machine Learning** (Isolation Forest) for anomaly detection, **Agentic AI** (Google Gemini) for conversational cost optimization, and **automated email alerts** for budget overrun notifications.
@@ -13,7 +13,7 @@
 
 </div>
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌────────────────────────────────────────────────────────────────────┐
@@ -36,55 +36,55 @@
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-### 📊 Dashboard Overview
+### Dashboard Overview
 - **4 Live Metric Cards** — Total Spend, AWS, Azure, GCP with real-time data from MongoDB
 - **6-Month Cost Trend** — Grouped bar chart by provider using Recharts
 - **Provider Breakdown** — Instant visibility into per-cloud spending
 
-### 🔍 Cost Explorer
+### Cost Explorer
 - **Service Breakdown Table** — Every cloud service ranked by cost with visual progress bars
 - **Provider Filter** — Toggle between All / AWS / Azure / GCP
 - **Region Analysis** — Cost distribution across data center locations
 
-### 💰 Budget Management
+### Budget Management
 - **Budget Cards** — Current spend vs. limit for each budget
 - **Color-coded Progress** — Green (safe) → Amber (warning at 80%) → Red (critical at 100%)
 - **Automated Email Alerts** — Nodemailer-powered Gmail notifications when thresholds are crossed
 
-### 🤖 AI Chat Assistant (Google Gemini)
+### AI Chat Assistant (Google Gemini)
 - **Conversational Cost Optimization** — Ask questions like *"How can I reduce my AWS spend?"*
 - **Context-Aware Responses** — The AI reads your live cost data before responding
 - **Actionable Recommendations** — Specific, provider-level optimization advice
 
-### 🔬 ML Anomaly Detection (Isolation Forest)
+### ML Anomaly Detection (Isolation Forest)
 - **Unsupervised Learning** — Trains on historical billing data to detect cost spikes
 - **Automatic Flagging** — Anomalous spending days are surfaced with severity scores
 - **Zero Configuration** — No manual threshold tuning required
 
-### 📈 Forecasts
+### Forecasts
 - **Historical Line Chart** — Actual spend over the last 6 months
 - **3-Month Projections** — Dashed forecast line with 5% monthly growth model
 
-### 🔐 Authentication & Security
+### Authentication & Security
 - **JWT-based Login/Signup** — Secure token-based authentication
 - **Protected Routes** — Dashboard pages require valid token
 - **Auto-attach Token** — Axios interceptor adds `Authorization` header to every API call
 
-### ⚙️ Settings
+### Settings
 - **Profile Display** — User info decoded from JWT
 - **Connected Providers** — AWS, Azure, GCP connection status
 - **Danger Zone** — Logout with token clearing
 
-### 📧 Email Notifications
+### Email Notifications
 - **Gmail SMTP via Nodemailer** — Automated budget alert emails
 - **Beautiful HTML Templates** — Dark-themed, branded email with utilization bar
 - **Per-User Delivery** — Alerts sent to the logged-in user's registered email address
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
@@ -100,7 +100,7 @@
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Multi-Cloud-Cost-Monitoring-Dashboard-Cloud-FinOps-/
@@ -153,7 +153,7 @@ Multi-Cloud-Cost-Monitoring-Dashboard-Cloud-FinOps-/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - **Docker & Docker Compose** (recommended)
@@ -221,7 +221,7 @@ EMAIL_APP_PASSWORD=your_16_char_app_password
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### Authentication
 | Method | Endpoint | Description |
@@ -253,7 +253,7 @@ EMAIL_APP_PASSWORD=your_16_char_app_password
 
 ---
 
-## 📊 Data Architecture
+## Data Architecture
 
 VyayaDrishti uses a programmatic **Seed Generator** to simulate 6 months of realistic billing data across 18 core services from 3 cloud providers.
 
@@ -281,7 +281,7 @@ VyayaDrishti uses a programmatic **Seed Generator** to simulate 6 months of real
 
 ---
 
-## ✅ Roadmap
+## Roadmap
 
 - [x] Backend API (Express + MongoDB)
 - [x] JWT Authentication (Login/Signup)
@@ -301,12 +301,12 @@ VyayaDrishti uses a programmatic **Seed Generator** to simulate 6 months of real
 
 ---
 
-## 👥 Team
+## Team
 
 **Ananya Karn** — [@kripinya](https://github.com/kripinya)
 
 ---
 
-## 📄 License
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
