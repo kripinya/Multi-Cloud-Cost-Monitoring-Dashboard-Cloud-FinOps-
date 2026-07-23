@@ -281,6 +281,198 @@ VyayaDrishti uses a programmatic **Seed Generator** to simulate 6 months of real
 
 ---
 
+## Architecture & Flow Diagrams
+
+### Overall Architecture
+```mermaid
+graph TD
+    User([End User / FinOps Admin]) -->|HTTP/HTTPS| FE[Frontend<br/>React + Vite + Recharts]
+    
+    subgraph VyayaDrishti Platform
+        FE -->|REST API Request| BE[Backend API<br/>Node.js + Express]
+        FE -->|Chat / Anomaly Req| ML[ML & AI Service<br/>Python + Flask]
+        
+        BE <-->|Read/Write| DB[(MongoDB Atlas)]
+        ML -->|Fetch Aggregated Data| BE
+    end
+    
+    ML <-->|Prompt & Response| Gemini[Google Gemini API]
+    BE -->|SMTP Email Trigger| Email[Gmail SMTP / Nodemailer]
+```
+
+### Data Flow Diagram (Level 0)
+```mermaid
+graph LR
+    User[FinOps User] -- "Dashboard Requests, Chat Queries" --> System((VyayaDrishti System))
+    System -- "Visualizations, Alerts, AI Insights" --> User
+    
+    System -- "Cost Context Prompt" --> Gemini[Google Gemini API]
+    Gemini -- "AI Recommendations" --> System
+    
+    System -- "Budget Alerts" --> SMTP[Email Server]
+    SMTP -- "Email Notification" --> EmailUser[User Email Inbox]
+```
+
+### Data Flow Diagram (Level 1)
+```mermaid
+graph TD
+    User[FinOps User] -->|Login/Register| P1(1.0 Auth Management)
+    User -->|View Dashboard| P2(2.0 Cost Processing)
+    User -->|Ask Cost Question| P3(3.0 AI Assistant)
+    User -->|Set Budgets| P4(4.0 Budget Management)
+    
+    P1 <--> DB[(MongoDB)]
+    P2 <--> DB
+    P4 <--> DB
+    
+    P2 -->|Daily Aggregations| P5(5.0 Anomaly Detection)
+    P5 -->|Identified Spikes| User
+    
+    P4 -->|Check Thresholds| P6(6.0 Alert System)
+    P6 -->|Threshold Exceeded| SMTP[SMTP Server]
+    
+    P2 -->|Current Spend Data| P3
+    P3 <-->|Context-Aware Query| Gemini[Gemini API]
+    P3 -->|Optimization Response| User
+```
+
+### Database / Data Model
+```mermaid
+erDiagram
+    USER ||--o{ BUDGET : creates
+    USER ||--o{ ALERT : receives
+    
+    USER {
+        ObjectId _id
+        String name
+        String email
+        String password
+        Date createdAt
+    }
+    
+    COST_RECORD {
+        ObjectId _id
+        String provider "AWS, Azure, GCP"
+        String service "EC2, S3, etc."
+        String region
+        Number cost
+        Date date
+        Number usageQuantity
+        String usageUnit
+        Object tags "project, team, env"
+    }
+    
+    BUDGET {
+        ObjectId _id
+        ObjectId userId
+        String name
+        Number amount
+        Number currentSpend
+        Array alertThresholds "[80, 100]"
+    }
+    
+    ALERT {
+        ObjectId _id
+        ObjectId userId
+        String type "BUDGET, ANOMALY"
+        String title
+        String message
+        String severity "low, medium, high"
+        Boolean isRead
+    }
+```
+
+### Synthetic Billing Data Generation Pipeline
+```mermaid
+graph TD
+    Start([Start Generation]) --> Config[Define Services, Regions, Base Costs]
+    Config --> Loop{For each day in 6 Months}
+    
+    Loop --> |Yes| S1[Calculate Base Cost with 30% Variance]
+    S1 --> S2{Is Weekend?}
+    S2 -- Yes --> S3[Apply 30-60% Cost Reduction]
+    S2 -- No --> S4[Apply 8% Monthly Compound Growth]
+    S3 --> S4
+    
+    S4 --> S5{2% Spike Probability?}
+    S5 -- Yes --> S6[Inject Anomaly: Multiply Cost by 2.5x to 5x]
+    S5 -- No --> S7[Assign Random Tags: Team, Project, Env]
+    S6 --> S7
+    
+    S7 --> Add[Add to Batch Array]
+    Add --> Loop
+    
+    Loop -- No More Days --> Batch[Insert Batches of 1000]
+    Batch --> DB[(MongoDB Atlas)]
+    DB --> End([End Generation])
+```
+
+### Isolation Forest Anomaly Detection Pipeline
+```mermaid
+graph TD
+    Req([Client Request /api/ml/anomalies]) --> Fetch[Fetch Daily Cost Array from Node Backend]
+    Fetch --> Check{Count < 10 days?}
+    
+    Check -- Yes --> Err[Return Error: Not enough data]
+    Check -- No --> DF[Convert JSON to Pandas DataFrame]
+    
+    DF --> Train[Initialize IsolationForest<br/>contamination=0.05, random_state=42]
+    Train --> FitPredict[Fit Model and Predict Anomalies<br/>-1 = Anomaly, 1 = Normal]
+    
+    FitPredict --> Filter[Filter DataFrame where Prediction == -1]
+    Filter --> Sort[Sort by Cost Descending]
+    Sort --> Format[Convert Dates to Strings]
+    Format --> Res([Return JSON List of Anomalies])
+```
+
+### Gemini AI Assistant Processing Flow
+```mermaid
+graph TD
+    User([User Sends Chat Message]) --> API[POST /api/ml/chat]
+    API --> Validate{Is message empty?}
+    Validate -- Yes --> Err[Return Error 400]
+    
+    Validate -- No --> Fetch[GET /api/costs/summary from Backend]
+    Fetch --> BuildCtx[Extract AWS, Azure, GCP, and Total Spend]
+    
+    BuildCtx --> BuildPrompt[Construct System Prompt<br/>Embed live costs as context]
+    BuildPrompt --> Concat[Append User Message to System Prompt]
+    
+    Concat --> Request[Call gemini-flash-lite-latest API]
+    Request --> Response[Parse AI Generated Content]
+    Response --> Return([Send Reply to Frontend UI])
+```
+
+### Deployment Architecture
+```mermaid
+graph TD
+    Internet((Internet / Client)) --> Vercel
+    
+    subgraph Vercel Cloud [Vercel Cloud]
+        Vercel[Vercel Global CDN<br/>Hosts React Frontend]
+    end
+    
+    subgraph Render Cloud [Render Application Cloud]
+        Backend[Backend Web Service<br/>Node.js / Express]
+        ML[ML Web Service<br/>Python / Flask]
+    end
+    
+    subgraph MongoDB Cloud [MongoDB Atlas Cloud]
+        DB[(M0 Shared Cluster<br/>MongoDB Database)]
+    end
+    
+    Vercel -->|HTTPS API Calls| Backend
+    Vercel -->|HTTPS API Calls| ML
+    
+    ML -->|Internal Fetch| Backend
+    ML -->|External HTTPS| Gemini[Google Cloud AI<br/>Gemini API]
+    
+    Backend <-->|Mongoose TCP| DB
+    Backend -->|SMTP| Gmail[Gmail SMTP Servers]
+```
+
+---
+
 ## Roadmap
 
 - [x] Backend API (Express + MongoDB)
