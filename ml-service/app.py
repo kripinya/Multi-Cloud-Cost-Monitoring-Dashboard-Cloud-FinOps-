@@ -14,10 +14,17 @@ CORS(app)
 
 # Express backend URL (your Node.js server)
 # Use 'server' instead of localhost for internal Docker network communication
-EXPRESS_API = os.getenv("EXPRESS_API_URL", "http://server:4000/api")
+EXPRESS_API = os.getenv("EXPRESS_API_URL", "http://server:4000").rstrip("/")
+if not EXPRESS_API.endswith("/api"):
+    EXPRESS_API = f"{EXPRESS_API}/api"
 
 # Configure Gemini
 gemini_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
+
+@app.route("/", methods=["GET"])
+def health_check():
+    return jsonify({"status": "ok", "service": "ml-service"})
 
 
 # ──────────────────────────────────────────────

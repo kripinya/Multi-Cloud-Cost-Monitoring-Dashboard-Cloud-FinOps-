@@ -55,7 +55,8 @@ export default function Forecasts() {
         const fetchAnomalies = async () => {
             try {
                 setAnomalyLoading(true);
-                const mlApiUrl = import.meta.env.VITE_ML_API_URL || 'http://localhost:5001/api/ml';
+                const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000/api';
+                const mlApiUrl = import.meta.env.VITE_ML_API_URL || `${apiUrl}/ml`;
                 const res = await fetch(`${mlApiUrl}/anomalies`);
                 const data = await res.json();
                 if (data.error) {

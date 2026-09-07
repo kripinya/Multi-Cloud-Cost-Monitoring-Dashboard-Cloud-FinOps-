@@ -12,6 +12,7 @@ const costRoutes = require('./routes/costRoutes');
 const alertRoutes = require('./routes/alertRoutes');
 const budgetRoutes = require('./routes/budgetRoutes');
 const authRoutes = require('./routes/authRoutes');
+const mlRoutes = require('./routes/mlRoutes');
 
 //create the express app
 const app = express();
@@ -30,6 +31,7 @@ app.use('/api/costs', costRoutes);
 app.use('/api/alerts', alertRoutes);
 app.use('/api/budgets', budgetRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/ml', mlRoutes);
 
 //start the server
 const PORT = process.env.PORT || 5000;
